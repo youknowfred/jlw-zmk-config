@@ -46,7 +46,7 @@ jobs:
             cp build/zephyr/zmk.uf2 artifacts/le_jlwffre.uf2
           fi
       - name: Archive (le_jlwffre)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: firmware
           path: artifacts
