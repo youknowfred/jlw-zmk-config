@@ -1,0 +1,32 @@
+mainmenu "ZMK Firmware"
+
+menu "ZMK"
+
+config ZMK_KEYBOARD_NAME
+    string "Keyboard Name"
+    default "le_jlwffre"
+
+endmenu
+
+source "Kconfig.zephyr"
+
+config SHIELD_LE_JLWFFRE
+    def_bool $(shields_list_contains,le_jlwffre)
+
+config BOARD_NICE_NANO_V2
+    def_bool $(dt_compat_enabled,nordic,nrf52840-qiaa)
+
+config USB_DEVICE_PRODUCT
+    default "le_jlwffre"
+
+config BT_DEVICE_NAME
+    default "le_jlwffre"
+
+config USB_DEVICE_VID
+    default 0x1209
+
+config USB_DEVICE_PID
+    default 0x0001
+
+config USB_DEVICE_MANUFACTURER
+    default "JLW Keyboards"
