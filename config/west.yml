@@ -4,14 +4,18 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: youknowfred
       url-base: https://github.com/youknowfred
+    - name: jlw-keyboards
+      url-base: https://github.com/josh-l-wang
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    # Add the name of the repository as a project.
     - name: jlw-zmk-config
       remote: youknowfred
+      revision: main
+    - name: zmk-jlw-keyboards
+      remote: jlw-keyboards
       revision: main
   self:
     path: config
