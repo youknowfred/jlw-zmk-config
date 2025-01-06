@@ -35,9 +35,6 @@ jobs:
       - name: West Build
         run: |
           west build -s zmk/app -b nrf52840dk_nrf52840 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: West Build (le_jlwffre Shield)
-        run: |
-          west build -s zmk/app -b nrf52840dk_nrf52840 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre
       - name: Rename artifacts
         if: success()
         run: |

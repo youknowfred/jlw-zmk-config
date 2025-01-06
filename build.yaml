@@ -1,4 +1,2 @@
 include:
   - board: nrf52840dk_nrf52840
-    shield: le_jlwffre
-  - board: nrf52840dk_nrf52840

@@ -6,4 +6,13 @@ if SHIELD_LE_JLWFFRE
 config ZMK_KEYBOARD_NAME
     default "Le JLWffre"
 
+config ZMK_SPLIT
+    default y
+
+config ZMK_SPLIT_BLE
+    default y
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
 endif
