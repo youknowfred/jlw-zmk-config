@@ -35,26 +35,21 @@ jobs:
           apt-get update
           apt-get install -y gcc-arm-none-eabi
           echo "GNUARMEMB_TOOLCHAIN_PATH=/usr" >> $GITHUB_ENV
-      - name: Print ZMK App Kconfig
-        run: |
-          cat zmk/app/Kconfig || echo "ZMK app Kconfig file not found"
       - name: West Build (le_jlwffre)
         run: |
-          west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" -DCMAKE_VERBOSE_MAKEFILE=ON -DKCONFIG_ROOT="${GITHUB_WORKSPACE}/custom_kconfig"
+          west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" -DSKIP_KCONFIG=ON
         env:
           ZEPHYR_TOOLCHAIN_VARIANT: gnuarmemb
-      - name: le_jlwffre DTS File
-        if: always()
-        run: cat -n build/zephyr/nice_nano_v2.dts.pre || true
       - name: Rename artifacts
+        if: success()
         run: |
-          mkdir artifacts
-          if [ -f build/zephyr/zmk.uf2 ]
-          then
+          mkdir -p artifacts
+          if [ -f build/zephyr/zmk.uf2 ]; then
             cp build/zephyr/zmk.uf2 artifacts/le_jlwffre.uf2
           fi
-      - name: Archive (le_jlwffre)
+      - name: Archive firmware
+        if: success()
         uses: actions/upload-artifact@v3
         with:
           name: firmware
-          path: artifacts
+          path: artifacts/
