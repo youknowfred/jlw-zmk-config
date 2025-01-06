@@ -13,3 +13,5 @@
 include:
   - board: le_jlwffre
     shield: settings_reset
+  - board: le_jlwffre
+    shield: le_jlwffre
