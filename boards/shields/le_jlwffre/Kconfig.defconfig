@@ -1,0 +1,9 @@
+# Copyright (c) 2024 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+if SHIELD_LE_JLWFFRE
+
+config ZMK_KEYBOARD_NAME
+    default "Le JLWffre"
+
+endif

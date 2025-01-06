@@ -2,4 +2,51 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache west modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-zephyr-modules
+        with:
+          path: |
+            modules/
+            tools/
+            zephyr/
+            bootloader/
+            zmk/
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('manifest-dir/west.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: West Init
+        run: west init -l config
+      - name: West Update
+        run: west update
+      - name: West Zephyr export
+        run: west zephyr-export
+      - name: West Build (le_jlwffre)
+        run: |
+          west build -s zmk/app -b le_jlwffre -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" -DCMAKE_VERBOSE_MAKEFILE=ON
+        env:
+          ZEPHYR_TOOLCHAIN_VARIANT: gnuarmemb
+      - name: le_jlwffre DTS File
+        if: always()
+        run: cat -n build/zephyr/le_jlwffre.dts.pre || true
+      - name: Rename artifacts
+        run: |
+          mkdir artifacts
+          if [ -f build/zephyr/zmk.uf2 ]
+          then
+            cp build/zephyr/zmk.uf2 artifacts/le_jlwffre.uf2
+          fi
+      - name: Archive (le_jlwffre)
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: artifacts
