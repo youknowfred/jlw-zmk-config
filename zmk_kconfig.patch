@@ -1,0 +1,13 @@
+diff --git a/app/Kconfig b/app/Kconfig
+index xxxxxxx..yyyyyyy 100644
+--- a/app/Kconfig
++++ b/app/Kconfig
+@@ -705,7 +705,7 @@ config ZMK_DISPLAY_STATUS_SCREEN_BUILT_IN
+ 
+ endmenu
+ 
+-source "Kconfig.zephyr"
++# source "Kconfig.zephyr"
+ 
+ module = ZMK
+ module-str = zmk
