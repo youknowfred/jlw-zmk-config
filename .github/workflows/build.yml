@@ -30,10 +30,9 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      - name: Apply ZMK Kconfig patch
+      - name: Modify ZMK Kconfig
         run: |
-          cd zmk/app
-          patch -p1 < ${GITHUB_WORKSPACE}/zmk_kconfig.patch
+          sed -i 's/source "Kconfig.zephyr"/#source "Kconfig.zephyr"/' zmk/app/Kconfig
       - name: Install GNU Arm Embedded Toolchain
         run: |
           apt-get update
