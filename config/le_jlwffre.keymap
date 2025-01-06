@@ -9,275 +9,79 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
-    behaviors {
-        ht: hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <200>;
-            quick-tap-ms = <220>;
-            require-prior-idle-ms = <125>;
-            bindings = <&kp>, <&kp>;
-        };
-        mt: mod_tap {
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick-tap-ms = <220>;
-            require-prior-idle-ms = <125>;
-            bindings = <&kp>, <&kp>;
-        };
-        as_ht: autoshift_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            bindings = <&shifted>, <&kp>;
-            flavor = "tap-preferred";
-        };
-
-        combos {
-            compatible = "zmk,combos";
-            combo_esc {
-                timeout-ms = <50>;
-                key-positions = <0 1>;
-                bindings = <&kp ESC>;
-            };
-            combo_del {
-                timeout-ms = <50>;
-                key-positions = <8 9>;
-                bindings = <&kp DEL>;
-            };
-            combo_reset {
-                timeout-ms = <50>;
-                key-positions = <0 9>;
-                layers = <2>;
-                bindings = <&sys_reset>;
-            };
-            combo_boot {
-                timeout-ms = <50>;
-                key-positions = <5 20>;
-                layers = <2>;
-                bindings = <&bootloader>;
-            };
-        };
-    };
-
-    macros {
-        /*
-         * Macro 1:
-         *  - Wait 150 ms
-         *  - Press Shift
-         *  - Wait 150 ms
-         *  - Press Win
-         *  - Wait 0 ms
-         *  - Tap '4'
-         *  - Release Win
-         *  - Release Shift
-         */
-        macro_1: macro_1 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <
-                &macro_wait 150
-                &macro_press &kp LSHFT
-                &macro_wait 150
-                &macro_press &kp LGUI
-                &macro_wait 0
-                &macro_tap &kp N4
-                &macro_release &kp LGUI
-                &macro_release &kp LSHFT
-            >;
-        };
-
-        /*
-         * Macro 2:
-         *  - Wait 150 ms
-         *  - Press Ctrl
-         *  - Wait 0 ms
-         *  - Tap Left Arrow
-         *  - Release Ctrl
-         */
-        macro_2: macro_2 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <
-                &macro_wait 150
-                &macro_press &kp LCTRL
-                &macro_wait 0
-                &macro_tap &kp LEFT
-                &macro_release &kp LCTRL
-            >;
-        };
-
-        /*
-         * Macro 3:
-         *  - Wait 150 ms
-         *  - Press Ctrl
-         *  - Wait 0 ms
-         *  - Tap Right Arrow
-         *  - Release Ctrl
-         */
-        macro_3: macro_3 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <
-                &macro_wait 150
-                &macro_press &kp LCTRL
-                &macro_wait 0
-                &macro_tap &kp RIGHT
-                &macro_release &kp LCTRL
-            >;
-        };
-
-        /*
-         * Macro 4:
-         *  - Wait 50 ms
-         *  - Press Win
-         *  - Wait 50 ms
-         *  - Press Shift
-         *  - Wait 0 ms
-         *  - Tap '='
-         *  - Release Shift
-         *  - Release Win
-         */
-        macro_4: macro_4 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <
-                &macro_wait 50
-                &macro_press &kp LGUI
-                &macro_wait 50
-                &macro_press &kp LSHFT
-                &macro_wait 0
-                &macro_tap &kp EQUAL
-                &macro_release &kp LSHFT
-                &macro_release &kp LGUI
-            >;
-        };
-
-        /*
-         * Macro 5:
-         *  - Wait 50 ms
-         *  - Press Win
-         *  - Wait 50 ms
-         *  - Press Shift
-         *  - Wait 0 ms
-         *  - Tap '-'
-         *  - Release Shift
-         *  - Release Win
-         */
-        macro_5: macro_5 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <
-                &macro_wait 50
-                &macro_press &kp LGUI
-                &macro_wait 50
-                &macro_press &kp LSHFT
-                &macro_wait 0
-                &macro_tap &kp MINUS
-                &macro_release &kp LSHFT
-                &macro_release &kp LGUI
-            >;
-        };
-
-        /*
-         * Macro 6:
-         *  - Wait 150 ms
-         *  - Press Ctrl
-         *  - Wait 0 ms
-         *  - Tap Up Arrow
-         *  - Release Ctrl
-         */
-        macro_6: macro_6 {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <
-                &macro_wait 150
-                &macro_press &kp LCTRL
-                &macro_wait 0
-                &macro_tap &kp UP
-                &macro_release &kp LCTRL
-            >;
-        };
-    };
-
-
     keymap {
         compatible = "zmk,keymap";
+
         default_layer {
             bindings = <
-        //╭─────────────┬────────────┬──────────┬──────────┬──────────────╮                      ╭──────────────┬───────────┬───────────┬──────────┬───────────╮
-        //│    Q        │     W      │    E     │    R     │      T       │                      │      Y       │     U     │     I     │    O     │   P       │
-            &mt LSHFT Q      &kp W      &kp E      &kp R        &kp T                                 &kp Y         &kp U      &kp I      &kp O      &kp P     
-        //├─────────────┼────────────┼──────────┼──────────┼──────────────┤                      ├──────────────┼───────────┼───────────┼──────────┼───────────┤
-        //│     A       │     S      │    D     │    F     │      G       │                      │      H       │     J     │     K     │    L     │   ' "     │
-              &kp A          &kp S       &kp D      &kp F        &kp G                                 &kp H        &kp J       &kp K       &kp L      &as SQT  
-        //├─────────────┼────────────┼──────────┼──────────┼──────────────┤                      ├──────────────┼───────────┼───────────┼──────────┼───────────┤
-        //│     Z       │     X      │    C     │    V     │      B       │                      │      N       │     M     │   , <     │   . >    │   / ?     │
-             &lt 3 Z         &kp X       &kp C      &kp V        &kp B                                 &kp N         &kp M     &as COMMA   &as DOT   &lt 3 FSLH 
-        //╰─────────────┴────────────┴──────────┼──────────┼──────────────┤                      ├──────────────┼───────────┼───────────┴──────────┴───────────╯
-                                              &lt 2 BSPC    &mt LGUI TAB         &kp C_MUTE         &mt RGUI RET     &lt 2 SPACE
-        //                                 ╰─────────────┴─────────────────╯                     ╰─────────────────┴───────────────╯
+            //╭─────────────┬────────────┬──────────┬──────────┬──────────────╮                      ╭──────────────┬───────────┬───────────┬──────────┬───────────╮
+            //│    Q        │     W      │    E     │    R     │      T       │                      │      Y       │     U     │     I     │    O     │   P       │
+                &mt LSHFT Q      &kp W      &kp E      &kp R        &kp T                                 &kp Y         &kp U      &kp I      &kp O      &kp P     
+            //├─────────────┼────────────┼──────────┼──────────┼──────────────┤                      ├──────────────┼───────────┼───────────┼──────────┼───────────┤
+            //│     A       │     S      │    D     │    F     │      G       │                      │      H       │     J     │     K     │    L     │   ' "     │
+                  &kp A          &kp S       &kp D      &kp F        &kp G                                 &kp H        &kp J       &kp K       &kp L      &as SQT  
+            //├─────────────┼────────────┼──────────┼──────────┼──────────────┤                      ├──────────────┼───────────┼───────────┼──────────┼───────────┤
+            //│     Z       │     X      │    C     │    V     │      B       │                      │      N       │     M     │   , <     │   . >    │   / ?     │
+                 &lt 3 Z         &kp X       &kp C      &kp V        &kp B                                 &kp N         &kp M     &as COMMA   &as DOT   &lt 3 FSLH 
+            //╰─────────────┴────────────┴──────────┼──────────┼──────────────┤                      ├──────────────┼───────────┼───────────┴──────────┴───────────╯
+                                                  &lt 2 BSPC    &mt LGUI TAB         &kp C_MUTE         &mt RGUI RET     &lt 2 SPACE
+            //                                 ╰─────────────┴─────────────────╯                     ╰─────────────────┴───────────────╯
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
-
-
 
         num_layer {
             bindings = <
-        //╭──────────┬───────────┬─────────────┬──────────────┬─────────────╮      ╭──────────────┬───────────────┬───────────────┬──────────────┬──────────────╮
-        //│    !     │     @     │     UP      │       $      │      %      │      │       *      │       7       │       8       │       9      │      +       │
-            &KP_EXCL     &KP_AT      &kp UP         &KP_DLLR     &KP_PRCNT           &KP_MULTIPLY    &KP_NUMBER_7   &KP_NUMBER_8    &KP_NUMBER_9    &kp_plus
-        //├──────────┼───────────┼─────────────┼──────────────┼─────────────┤      ├──────────────┼───────────────┼───────────────┼──────────────┼──────────────┤
-        //│    (     │    LEFT   │    DOWN     │    RIGHT     │      )      │      │      |       │       4       │       5       │       6      │       -      │
-            &KP_LPAR    &kp LEFT    &kp DOWN      &kp RIGHT      &KP_RPAR              &KP_PIPE      &KP_NUMBER_4   &KP_NUMBER_5    &KP_NUMBER_6    &kp MINUS
-        //├──────────┼───────────┼─────────────┼──────────────┼─────────────┤      ├──────────────┼───────────────┼───────────────┼──────────────┼──────────────┤
-        //│   CAPS   │     ~     │      #      │      ^       │      =      │      │      &       │       1       │       2       │       3      │      0       │
-            &KP_CAPS   &KP_TILDE    &KP_HASH      &KP_CARET       &KP_EQUAL            &KP_AMPS      &KP_NUMBER_1   &KP_NUMBER_2    &KP_NUMBER_3   &KP_NUMBER_0
-        //╰──────────┴───────────┴─────────────┼──────────────┼─────────────┤      ├──────────────┼───────────────┼───────────────┴──────────────┴──────────────╯
-                                                 &trans           &trans     &trans    &trans             &trans
-        //                                 ╰──────────────────┴─────────────╯      ╰──────────────┴────────────────────╯
+            //╭──────────┬───────────┬─────────────┬──────────────┬─────────────╮      ╭──────────────┬───────────────┬───────────────┬──────────────┬──────────────╮
+            //│    !     │     @     │     UP      │       $      │      %      │      │       *      │       7       │       8       │       9      │      +       │
+                &KP_EXCL     &KP_AT      &kp UP         &KP_DLLR     &KP_PRCNT           &KP_MULTIPLY    &KP_NUMBER_7   &KP_NUMBER_8    &KP_NUMBER_9    &kp PLUS
+            //├──────────┼───────────┼─────────────┼──────────────┼─────────────┤      ├──────────────┼───────────────┼───────────────┼──────────────┼──────────────┤
+            //│    (     │    LEFT   │    DOWN     │    RIGHT     │      )      │      │      |       │       4       │       5       │       6      │       -      │
+                &KP_LPAR    &kp LEFT    &kp DOWN      &kp RIGHT      &KP_RPAR              &KP_PIPE      &KP_NUMBER_4   &KP_NUMBER_5    &KP_NUMBER_6    &kp MINUS
+            //├──────────┼───────────┼─────────────┼──────────────┼─────────────┤      ├──────────────┼───────────────┼───────────────┼──────────────┼──────────────┤
+            //│   CAPS   │     ~     │      #      │      ^       │      =      │      │      &       │       1       │       2       │       3      │      0       │
+                &KP_CAPS   &KP_TILDE    &KP_HASH      &KP_CARET       &KP_EQUAL            &KP_AMPS      &KP_NUMBER_1   &KP_NUMBER_2    &KP_NUMBER_3   &KP_NUMBER_0
+            //╰──────────┴───────────┴─────────────┼──────────────┼─────────────┤      ├──────────────┼───────────────┼───────────────┴──────────────┴──────────────╯
+                                                     &trans           &trans     &trans    &trans             &trans
+            //                                 ╰──────────────────┴─────────────╯      ╰──────────────┴────────────────────╯
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-       fn_layer {
+        fn_layer {
             bindings = <
-        //╭──────────┬────────────────┬────────────┬──────────┬──────────╮      ╭──────────┬────────────┬──────────┬──────────┬──────────╮
-        //│          │       _        │    ESC     │          │          │      │          │            │          │          │          │
-             &none     &kp_UNDERSCORE    &kp_ESC     &none       &none             &none      &macro_4    &macro_5    &none      &none
-        //├──────────┼────────────────┼──────────┼──────────┼────────────┤      ├──────────┼────────────┼──────────┼──────────┼──────────┤
-        //│    [     │   MACRO 1      │    ;      │    :      │    ]     │      │          │            │          │          │          │
-            &KP_LBKT      &macro_1         &KP_SEMI    &KP_COLON   &KP_RBKT        &none      &macro_2    &macro_3    &none      &none
-        //├──────────┼────────────────┼──────────┼──────────┼────────────┤      ├──────────┼────────────┼──────────┼──────────┼──────────┤
-        //│    {     │                │          │          │      }     │      │          │            │          │          │          │
-            &KP_LBRC      &none          &none       &none      &KP_RBRC           &none     &bt BT_CLR   &BT_SEL 0  &BT_SEL 1  &BT_SEL 2
-        //╰──────────┴────────────────┴──────────┼──────────┼────────────┤      ├──────────┼────────────┼──────────┴──────────┴──────────╯
-                                               &trans           &trans    &trans   &trans       &trans
-        //                               ╰──────────────────┴────────────╯      ╰──────────┴──────────────────╯
+            //╭──────────┬────────────────┬────────────┬──────────┬──────────╮      ╭──────────┬────────────┬──────────┬──────────┬──────────╮
+            //│          │       _        │    ESC     │          │          │      │          │            │          │          │          │
+                 &none     &kp_UNDERSCORE    &kp_ESC     &none       &none             &none      &macro_4    &macro_5    &none      &none
+            //├──────────┼────────────────┼──────────┼──────────┼────────────┤      ├──────────┼────────────┼──────────┼──────────┼──────────┤
+            //│    [     │   MACRO 1      │    ;      │    :      │    ]     │      │          │            │          │          │          │
+                &KP_LBKT      &macro_1         &KP_SEMI    &KP_COLON   &KP_RBKT        &none      &macro_2    &macro_3    &none      &none
+            //├──────────┼────────────────┼──────────┼──────────┼────────────┤      ├──────────┼────────────┼──────────┼──────────┼──────────┤
+            //│    {     │                │          │          │      }     │      │          │            │          │          │          │
+                &KP_LBRC      &none          &none       &none      &KP_RBRC           &none     &bt BT_CLR   &BT_SEL 0  &BT_SEL 1  &BT_SEL 2
+            //╰──────────┴────────────────┴──────────┼──────────┼────────────┤      ├──────────┼────────────┼──────────┴──────────┴──────────╯
+                                                   &trans           &trans    &trans   &trans       &trans
+            //                               ╰──────────────────┴────────────╯      ╰──────────┴──────────────────╯
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         nav_layer {
             bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮      ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│          │          │          │          │          │      │  HOME    │          │  UP      │          │  PG_UP   │
-            &none      &none  &kp LS(LG(N4)) &kp LS(LG(S)) &none         &kp HOME   &none      &kp UP     &none      &kp PG_UP
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤      ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  LGUI    │  LALT    │  LCTRL   │          │          │      │  END     │  LEFT    │  DOWN    │  RIGHT   │  PG_DN   │
-            &kp LGUI   &kp LALT   &kp LCTRL  &none      &none             &kp END    &kp LEFT   &kp DOWN  &kp RIGHT  &kp PG_DN
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤      ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │      │          │          │          │          │          │
-            &none      &none      &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP    &none      &none      &none      &none      &none
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤      ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &trans    &trans  &trans     &trans
-        //                                 ╰──────────┴──────────╯      ╰──────────┴──────────╯
+            //╭──────────┬──────────┬──────────┬──────────┬──────────╮      ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+            //│          │          │          │          │          │      │  HOME    │          │  UP      │          │  PG_UP   │
+                &none      &none    &kp LS(LG(N4)) &kp LS(LG(S)) &none         &kp HOME   &none      &kp UP     &none      &kp PG_UP
+            //├──────────┼──────────┼──────────┼──────────┼──────────┤      ├──────────┼──────────┼──────────┼──────────┼──────────┤
+            //│  LGUI    │  LALT    │  LCTRL   │          │          │      │  END     │  LEFT    │  DOWN    │  RIGHT   │  PG_DN   │
+                &kp LGUI   &kp LALT   &kp LCTRL  &none      &none             &kp END    &kp LEFT   &kp DOWN  &kp RIGHT  &kp PG_DN
+            //├──────────┼──────────┼──────────┼──────────┼──────────┤      ├──────────┼──────────┼──────────┼──────────┼──────────┤
+            //│          │          │          │          │          │      │          │          │          │          │          │
+                &none      &none      &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP    &none      &none      &none      &none      &none
+            //╰──────────┴──────────┴──────────┼──────────┼──────────┤      ├──────────┼──────────┼──────────┴──────────┴──────────╯
+                                                 &trans     &trans    &trans  &trans     &trans
+            //                                 ╰──────────┴──────────╯      ╰──────────┴──────────╯
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
-
     };
-
 };
