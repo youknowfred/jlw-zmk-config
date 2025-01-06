@@ -40,7 +40,7 @@ jobs:
           cat zmk/app/Kconfig || echo "ZMK app Kconfig file not found"
       - name: West Build (le_jlwffre)
         run: |
-          west build -s zmk/app -b le_jlwffre -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" -DCMAKE_VERBOSE_MAKEFILE=ON -DSKIP_KCONFIG=ON
+          west build -s zmk/app -b le_jlwffre -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_LISTS_DIR="${GITHUB_WORKSPACE}"
         env:
           ZEPHYR_TOOLCHAIN_VARIANT: gnuarmemb
       - name: le_jlwffre DTS File
