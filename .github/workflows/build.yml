@@ -30,16 +30,9 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      - name: Setup GNU Arm Embedded Toolchain
-        run: |
-          apt-get update
-          apt-get install -y gcc-arm-none-eabi
-          echo "GNUARMEMB_TOOLCHAIN_PATH=/usr" >> $GITHUB_ENV
       - name: West Build (le_jlwffre)
         run: |
-          west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" -DKCONFIG_ROOT="${GITHUB_WORKSPACE}/config/le_jlwffre_kconfig"
-        env:
-          ZEPHYR_TOOLCHAIN_VARIANT: gnuarmemb
+          west build -s zmk/app -b le_jlwffre -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre
       - name: Rename artifacts
         if: success()
         run: |
