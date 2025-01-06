@@ -30,17 +30,9 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      - name: Modify ZMK Kconfig
-        run: |
-          sed -i 's/source "Kconfig.zephyr"/#source "Kconfig.zephyr"/' zmk/app/Kconfig
-      - name: Install GNU Arm Embedded Toolchain
-        run: |
-          apt-get update
-          apt-get install -y gcc-arm-none-eabi
-          echo "GNUARMEMB_TOOLCHAIN_PATH=/usr" >> $GITHUB_ENV
       - name: West Build (le_jlwffre)
         run: |
-          west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}"
+          west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}" -DKCONFIG_ROOT="${GITHUB_WORKSPACE}/zmk/app/Kconfig" -DCONF_FILE="${GITHUB_WORKSPACE}/zmk/app/boards/arm/nice_nano/nice_nano_v2_defconfig"
         env:
           ZEPHYR_TOOLCHAIN_VARIANT: gnuarmemb
       - name: Rename artifacts
