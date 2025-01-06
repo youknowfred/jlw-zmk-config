@@ -1,0 +1,15 @@
+# This is a minimal Kconfig file to avoid recursive sourcing
+
+source "Kconfig.zephyr"
+
+config ZMK_KEYBOARD_NAME
+    string
+    default "le_jlwffre"
+
+config ZMK_SPLIT
+    bool
+    default n
+
+config ZMK_DISPLAY
+    bool
+    default n
