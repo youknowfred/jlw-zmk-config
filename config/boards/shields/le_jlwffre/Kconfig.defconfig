@@ -7,15 +7,19 @@ config ZMK_KEYBOARD_NAME
     default "Le JLWffre"
 
 config USB
+    bool
     default y
 
 config USB_DEVICE_STACK
+    bool
     default y
 
 config USB_HID
+    bool
     default y
 
 config ZMK_USB
+    bool
     default y
 
 endif
