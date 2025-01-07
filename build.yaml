@@ -2,3 +2,4 @@ include:
   - board: nrf52840dk_nrf52840
     shield: le_jlwffre
     keymap: config/le_jlwffre.keymap
+    shield_dir: config/boards/shields/le_jlwffre
