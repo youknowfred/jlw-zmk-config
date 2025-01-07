@@ -1,6 +1,4 @@
 /*
- * Copyright (c) 2024 The ZMK Contributors
- *
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,10 +8,17 @@ aliases {
     cdc_acm_uart = &uart0;
 };
 
+&uart0 {
+    compatible = "zephyr,usb-cdc-acm";
+    status = "okay";
+    baudrate = <115200>;
+    current-speed = <115200>;
+};
+
 chosen {
     zmk,kscan = &kscan0;
     zmk,matrix_transform = &default_transform;
-    zephyr,console = &cdc_acm_uart;
+    zephyr,console = &uart0;
 };
 
 usb_hid: usb_hid {
