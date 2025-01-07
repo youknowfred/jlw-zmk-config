@@ -6,20 +6,4 @@ if SHIELD_LE_JLWFFRE
 config ZMK_KEYBOARD_NAME
     default "Le JLWffre"
 
-choice ZMK_SPLIT
-    default ZMK_SPLIT_BLE
-
-config ZMK_SPLIT_BLE
-    bool "BLE Split"
-    select BT
-    select BT_PERIPHERAL
-    select BT_CENTRAL
-    select BT_GATT_CLIENT
-
-config ZMK_SPLIT_ROLE_CENTRAL
-    bool "Central Role"
-    depends on ZMK_SPLIT_BLE
-
-endchoice
-
 endif
