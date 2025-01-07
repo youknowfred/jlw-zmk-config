@@ -5,3 +5,6 @@ include:
     shield_dir: config/boards/shields/le_jlwffre
     extra_args:
       - -DCONFIG_BUILD_OUTPUT_UF2=y
+      - -DCONFIG_BUILD_OUTPUT_BIN=n
+      - -DCONFIG_BUILD_OUTPUT_HEX=n
+      - -DCONFIG_BUILD_OUTPUT_UF2_REQUIRED=y

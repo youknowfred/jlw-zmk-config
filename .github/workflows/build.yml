@@ -43,27 +43,23 @@ jobs:
           echo "Zephyr directory contents:"
           ls -R build/zephyr
           
-      - name: Find and rename firmware
+      - name: Verify UF2 firmware
         if: success()
         run: |
           mkdir -p artifacts
           if [ -f build/zephyr/zmk.uf2 ]; then
             echo "Found UF2 firmware"
             cp build/zephyr/zmk.uf2 artifacts/le_jlwffre.uf2
-          elif [ -f build/zephyr/zmk.bin ]; then
-            echo "Found BIN firmware (UF2 not generated)"
-            cp build/zephyr/zmk.bin artifacts/le_jlwffre.bin
-          elif [ -f build/zephyr/zmk.hex ]; then
-            echo "Found HEX firmware (UF2 and BIN not generated)"
-            cp build/zephyr/zmk.hex artifacts/le_jlwffre.hex
           else
-            echo "No firmware files found!"
+            echo "UF2 firmware not found! Build failed to generate required firmware format."
+            echo "Build directory contents:"
+            ls -R build
             exit 1
           fi
       - name: Archive firmware
         if: success()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: artifacts/
+          path: artifacts/le_jlwffre.uf2
           if-no-files-found: error
