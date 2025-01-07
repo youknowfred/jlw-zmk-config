@@ -1,2 +1,3 @@
 include:
   - board: nrf52840dk_nrf52840
+    keymap: config/le_jlwffre.keymap
