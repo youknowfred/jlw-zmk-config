@@ -10,6 +10,13 @@
     chosen {
         zmk,kscan = &kscan0;
         zmk,matrix_transform = &default_transform;
+        zephyr,console = &cdc_acm_uart;
+    };
+
+    usb_hid: usb_hid {
+        compatible = "zmk,usb-hid";
+        status = "okay";
+        label = "USB_HID";
     };
 
     default_transform: keymap_transform_0 {
