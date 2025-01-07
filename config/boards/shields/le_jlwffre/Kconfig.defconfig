@@ -6,4 +6,16 @@ if SHIELD_LE_JLWFFRE
 config ZMK_KEYBOARD_NAME
     default "Le JLWffre"
 
+config USB
+    default y
+
+config USB_DEVICE_STACK
+    default y
+
+config USB_HID
+    default y
+
+config ZMK_USB
+    default y
+
 endif
