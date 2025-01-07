@@ -27,39 +27,24 @@ jobs:
       - name: West Init
         run: west init -l config
       - name: West Update
-        run: |
-          west update
-          west update zmk-jlw-keyboards
+        run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      - name: West Build
+      - name: West Build (le_jlwffre)
         run: |
-          west build -s zmk/app -b nrf52840dk_nrf52840 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre
-      - name: Debug build output
-        if: success()
-        run: |
-          echo "Build directory contents:"
-          ls -R build
-          echo "Zephyr directory contents:"
-          ls -R build/zephyr
-          
-      - name: Verify UF2 firmware
+          west build -s zmk/app -b le_jlwffre -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre
+        env:
+          ZEPHYR_BOARD: le_jlwffre
+      - name: Rename artifacts
         if: success()
         run: |
           mkdir -p artifacts
           if [ -f build/zephyr/zmk.uf2 ]; then
-            echo "Found UF2 firmware"
             cp build/zephyr/zmk.uf2 artifacts/le_jlwffre.uf2
-          else
-            echo "UF2 firmware not found! Build failed to generate required firmware format."
-            echo "Build directory contents:"
-            ls -R build
-            exit 1
           fi
       - name: Archive firmware
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: firmware
-          path: artifacts/le_jlwffre.uf2
-          if-no-files-found: error
+          path: artifacts/
