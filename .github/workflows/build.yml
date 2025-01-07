@@ -34,7 +34,11 @@ jobs:
         run: west zephyr-export
       - name: West Build
         run: |
-          west build -s zmk/app -b nrf52840dk_nrf52840 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre
+          west build -s zmk/app -b nrf52840dk_nrf52840 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre -DCMAKE_VERBOSE_MAKEFILE=ON
+      - name: Print CMake Error Log
+        if: failure()
+        run: |
+          cat build/CMakeFiles/CMakeError.log
       - name: Debug build output
         if: success()
         run: |
