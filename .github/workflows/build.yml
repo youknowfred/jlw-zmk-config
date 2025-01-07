@@ -51,10 +51,10 @@ jobs:
             echo "Found UF2 firmware"
             cp build/zephyr/zmk.uf2 artifacts/le_jlwffre.uf2
           elif [ -f build/zephyr/zmk.bin ]; then
-            echo "Found BIN firmware"
+            echo "Found BIN firmware (UF2 not generated)"
             cp build/zephyr/zmk.bin artifacts/le_jlwffre.bin
           elif [ -f build/zephyr/zmk.hex ]; then
-            echo "Found HEX firmware"
+            echo "Found HEX firmware (UF2 and BIN not generated)"
             cp build/zephyr/zmk.hex artifacts/le_jlwffre.hex
           else
             echo "No firmware files found!"

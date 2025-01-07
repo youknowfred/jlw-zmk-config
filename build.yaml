@@ -3,3 +3,5 @@ include:
     shield: le_jlwffre
     keymap: config/le_jlwffre.keymap
     shield_dir: config/boards/shields/le_jlwffre
+    extra_args:
+      - -DCONFIG_BUILD_OUTPUT_UF2=y
