@@ -40,10 +40,22 @@ jobs:
 
       - name: West Build (le_jlwffre)
         run: |
-          west build -p -s zmk/app -b le_jlwffre -- \
+          west build -p -s zmk/app -b nrf52840dk_nrf52840 -- \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
             -DSHIELD=le_jlwffre \
             -DCONF_FILE="${GITHUB_WORKSPACE}/config/le_jlwffre.conf" \
+            -DCONFIG_ZMK_BOARD_LE_JLWFFRE=y \
+            -DCONFIG_ZMK_SHIELD_LE_JLWFFRE=y \
+            -DCONFIG_ZMK_USB=y \
+            -DCONFIG_ZMK_USB_PRODUCT="le_jlwffre" \
+            -DCONFIG_ZMK_UART_CONSOLE=y \
+            -DCONFIG_ZMK_UART_CONSOLE_UART0=y \
+            -DCONFIG_ZMK_BLE=y \
+            -DCONFIG_ZMK_BLE_DEVICE_NAME="le_jlwffre" \
+            -DCONFIG_BUILD_OUTPUT_UF2=y \
+            -DCONFIG_BUILD_OUTPUT_BIN=n \
+            -DCONFIG_BUILD_OUTPUT_HEX=n \
+            -DCONFIG_BUILD_OUTPUT_UF2_REQUIRED=y \
             -DZMK_CONFIG_DEBUG_INIT=y
 
       - name: Rename artifacts
