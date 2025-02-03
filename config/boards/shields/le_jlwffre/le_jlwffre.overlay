@@ -6,7 +6,7 @@
 
 / {
     aliases {
-        cdc_acm_uart = &uart0;
+        cdcacmuart = &uart0;
     };
 };
 
