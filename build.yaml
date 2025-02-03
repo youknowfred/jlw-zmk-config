@@ -4,20 +4,4 @@ include:
     keymap: config/le_jlwffre.keymap
     shield_dir: config/boards/shields/le_jlwffre
     extra_args:
-      - -DCONFIG_BUILD_OUTPUT_UF2=y
-      - -DCONFIG_BUILD_OUTPUT_BIN=n
-      - -DCONFIG_BUILD_OUTPUT_HEX=n
-      - -DCONFIG_BUILD_OUTPUT_UF2_REQUIRED=y
-      - -DCONFIG_USB=y
-      - -DCONFIG_USB_DEVICE_STACK=y
-      - -DCONFIG_USB_DEVICE_HID=y
-      - -DCONFIG_ZMK_USB=y
-      - -DCONFIG_ZMK_HID=y
-      - -DCONFIG_USB_HID_BOOT_PROTOCOL=y
-      - -DCONFIG_USB_HID_POLL_INTERVAL_MS=1
-      - -DCONFIG_UART_CONSOLE=y
-      - -DCONFIG_USB_CDC_ACM=y
-      - -DCONFIG_USB_CDC_ACM_UART_CONSOLE=y
-      - -DCONFIG_UART_LINE_CTRL=y
-      - -DCONFIG_UART_CONSOLE_ON_DEV_NAME="CDC_ACM_0"
       - -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"

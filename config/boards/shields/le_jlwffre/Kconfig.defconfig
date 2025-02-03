@@ -6,40 +6,6 @@ if SHIELD_LE_JLWFFRE
 config ZMK_KEYBOARD_NAME
     default "Le JLWffre"
 
-config USB
-    bool
-    default y
-
-config USB_DEVICE_STACK
-    bool
-    default y
-
-config USB_HID
-    bool
-    default y
-
-config ZMK_USB
-    bool
-    default y
-
-config UART_CONSOLE
-    bool
-    default y
-
-config USB_CDC_ACM
-    bool
-    default y
-
-config USB_CDC_ACM_UART_CONSOLE
-    bool
-    default y
-
-config UART_LINE_CTRL
-    bool
-    default y
-
-config UART_CONSOLE_ON_DEV_NAME
-    string
-    default "CDC_ACM_0"
+# USB and Console configurations are now handled in le_jlwffre.conf
 
 endif
