@@ -27,20 +27,24 @@ jobs:
             ${{ runner.os }}-
 
       - name: West Init
-        run: west init -l config
+        run: west init -l config --mr v3.2
 
       - name: West Update
-        run: west update
+        run: west update --narrow -o=--depth=1
 
       - name: West Zephyr export
         run: west zephyr-export
 
       - name: West Clean
-        run: west build -t clean
+        run: west build -p -t clean -s zmk/app
 
       - name: West Build (le_jlwffre)
         run: |
-          west build -s zmk/app -b le_jlwffre -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DSHIELD=le_jlwffre
+          west build -p -s zmk/app -b le_jlwffre -- \
+            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
+            -DSHIELD=le_jlwffre \
+            -DCONF_FILE="${GITHUB_WORKSPACE}/config/le_jlwffre.conf" \
+            -DZMK_CONFIG_DEBUG_INIT=y
 
       - name: Rename artifacts
         if: success()

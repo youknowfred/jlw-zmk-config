@@ -22,4 +22,24 @@ config ZMK_USB
     bool
     default y
 
+config UART_CONSOLE
+    bool
+    default y
+
+config USB_CDC_ACM
+    bool
+    default y
+
+config USB_CDC_ACM_UART_CONSOLE
+    bool
+    default y
+
+config UART_LINE_CTRL
+    bool
+    default y
+
+config UART_CONSOLE_ON_DEV_NAME
+    string
+    default "CDC_ACM_0"
+
 endif

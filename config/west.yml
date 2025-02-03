@@ -7,10 +7,11 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      revision: v3.2
       import: app/west.yml
     - name: zmk-jlw-keyboards
       remote: jlw
       revision: main
+      path: boards/arm/le_jlwffre
   self:
     path: config
