@@ -35,29 +35,38 @@ jobs:
       - name: West Zephyr export
         run: west zephyr-export
 
-      - name: West Clean
-        run: west build -p -t clean -s zmk/app
-
       - name: Configure West
         run: |
           west config build.board_warn false
           west config build.board nrf52840dk_nrf52840
+          echo "BOARD=nrf52840dk_nrf52840" >> $GITHUB_ENV
+
+      - name: West Clean
+        run: west build -p -t clean -s zmk/app -b nrf52840dk_nrf52840
 
       - name: West Build (le_jlwffre)
+        env:
+          BOARD: nrf52840dk_nrf52840
         run: |
           west build -p -s zmk/app -- \
             -DBOARD=nrf52840dk_nrf52840 \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
             -DSHIELD=le_jlwffre \
+            -DSHIELD_DIR="${GITHUB_WORKSPACE}/config/boards/shields/le_jlwffre" \
             -DKEYMAP_FILE="${GITHUB_WORKSPACE}/config/le_jlwffre.keymap" \
             -DCONF_FILE="${GITHUB_WORKSPACE}/config/le_jlwffre.conf" \
-            -DCONFIG_ZMK_KEYBOARD_NAME="le_jlwffre" \
+            -DCONFIG_USB=y \
+            -DCONFIG_USB_DEVICE_STACK=y \
+            -DCONFIG_USB_DEVICE_HID=y \
             -DCONFIG_ZMK_USB=y \
-            -DCONFIG_ZMK_USB_PRODUCT="le_jlwffre" \
-            -DCONFIG_ZMK_UART_CONSOLE=y \
-            -DCONFIG_ZMK_UART_CONSOLE_UART0=y \
-            -DCONFIG_ZMK_BLE=y \
-            -DCONFIG_ZMK_BLE_DEVICE_NAME="le_jlwffre" \
+            -DCONFIG_ZMK_HID=y \
+            -DCONFIG_USB_HID_BOOT_PROTOCOL=y \
+            -DCONFIG_USB_HID_POLL_INTERVAL_MS=1 \
+            -DCONFIG_UART_CONSOLE=y \
+            -DCONFIG_USB_CDC_ACM=y \
+            -DCONFIG_USB_CDC_ACM_UART_CONSOLE=y \
+            -DCONFIG_UART_LINE_CTRL=y \
+            -DCONFIG_UART_CONSOLE_ON_DEV_NAME="CDC_ACM_0" \
             -DCONFIG_BUILD_OUTPUT_UF2=y \
             -DCONFIG_BUILD_OUTPUT_BIN=n \
             -DCONFIG_BUILD_OUTPUT_HEX=n \
