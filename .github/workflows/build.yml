@@ -27,10 +27,14 @@ jobs:
             ${{ runner.os }}-
 
       - name: West Init
-        run: west init -l config --mr v3.2
+        run: west init -l config
 
       - name: West Update
-        run: west update --narrow -o=--depth=1
+        run: |
+          west update --narrow -o=--depth=1
+          cd zmk
+          git checkout v3.2
+          cd ..
 
       - name: West Zephyr export
         run: west zephyr-export
