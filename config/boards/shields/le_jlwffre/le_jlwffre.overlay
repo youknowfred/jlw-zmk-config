@@ -11,9 +11,8 @@
 };
 
 &uart0 {
-    compatible = "zephyr,usb-cdc-acm";
+    compatible = "zephyr,cdc-acm-uart";
     status = "okay";
-    baudrate = <115200>;
     current-speed = <115200>;
 };
 
